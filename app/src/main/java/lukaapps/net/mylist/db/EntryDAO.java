@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import lukaapps.net.mylist.db.ListContract.ListEntry;
+import lukaapps.net.mylist.db.DAOHelper.ListEntry;
 import lukaapps.net.mylist.model.Entry;
 
 

@@ -3,8 +3,7 @@ package lukaapps.net.mylist.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import lukaapps.net.mylist.db.ListContract.ListEntry;
+import android.provider.BaseColumns;
 
 public class DAOHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -38,5 +37,11 @@ public class DAOHelper extends SQLiteOpenHelper {
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    /* Inner class that defines the table contents */
+    public static abstract class ListEntry implements BaseColumns {
+        public static final String TABLE_NAME = "entry";
+        public static final String COLUMN_NAME_TITLE = "title";
     }
 }

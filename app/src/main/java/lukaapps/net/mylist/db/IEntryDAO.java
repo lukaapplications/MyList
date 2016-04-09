@@ -1,17 +1,15 @@
 package lukaapps.net.mylist.db;
 
-import android.content.Context;
-
 import java.util.List;
 
 import lukaapps.net.mylist.model.Entry;
 
 public interface IEntryDAO {
-    List<Entry> getEntries(Context context);
+    List<Entry> getEntries();
 
-    Entry getEntry(long id, Context context);
+    Entry getEntry(long id);
 
-    Entry saveEntry(Entry entry, Context context);
+    Entry saveEntry(Entry entry);
 }
 
 

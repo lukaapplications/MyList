@@ -1,9 +1,12 @@
 package lukaapps.net.mylist.model;
 
+import java.util.List;
+
 public class EntryList {
 
     public long id;
     public String title;
+    public List<Entry> entries;
 
     public EntryList(String title) {
         this.title = title;

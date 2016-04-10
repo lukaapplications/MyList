@@ -8,9 +8,7 @@ public interface IEntryDAO {
     List<Entry> getEntries();
     Entry getEntry(long id);
     Entry saveEntry(Entry entry);
-
     boolean deleteEntry(long id);
-
     boolean deleteEntries(List<Entry> entries);
 }
 

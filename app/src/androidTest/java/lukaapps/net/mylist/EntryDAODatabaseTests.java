@@ -139,4 +139,14 @@ public class EntryDAODatabaseTests {
         assertEquals(testEntry.id, id);
         assertEquals(testEntry.listID, 99);
     }
+
+    @Test
+    public void getEntriesForList() throws Exception {
+        db.saveEntry(new Entry(0, testString, 100));
+        db.saveEntry(new Entry(0, testString, 100));
+        db.saveEntry(new Entry(0, testString, 101));
+
+        assertEquals(db.getEntries(100).size(), 2);
+        assertEquals(db.getEntries(102).size(), 0);
+    }
 }

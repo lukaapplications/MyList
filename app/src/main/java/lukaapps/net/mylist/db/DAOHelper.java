@@ -25,11 +25,19 @@ public class DAOHelper extends SQLiteOpenHelper {
                     ListEntryStructure._ID + " INTEGER PRIMARY KEY," +
                     ListEntryStructure.COLUMN_NAME_TITLE + TEXT_TYPE +
                     " )";
+    private static final String SQL_CREATE_ITEMS =
+            "CREATE TABLE " + ItemStructure.TABLE_NAME + " (" +
+                    ItemStructure._ID + " INTEGER PRIMARY KEY," +
+                    ItemStructure.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+                    ItemStructure.COLUMN_NAME_LASTUSED + INTEGER_TYPE +
+                    " )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + EntryStructure.TABLE_NAME;
     private static final String SQL_DELETE_ENTRYLISTS =
             "DROP TABLE IF EXISTS " + ListEntryStructure.TABLE_NAME;
+    private static final String SQL_DELETE_ITEMS =
+            "DROP TABLE IF EXISTS " + ItemStructure.TABLE_NAME;
 
     public DAOHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,6 +46,7 @@ public class DAOHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
         db.execSQL(SQL_CREATE_ENTRYLISTS);
+        db.execSQL(SQL_CREATE_ITEMS);
 
         createDefaultObjects(db);
     }
@@ -47,6 +56,7 @@ public class DAOHelper extends SQLiteOpenHelper {
         // to simply to discard the data and start over
         db.execSQL(SQL_DELETE_ENTRIES);
         db.execSQL(SQL_DELETE_ENTRYLISTS);
+        db.execSQL(SQL_DELETE_ITEMS);
         onCreate(db);
     }
 
@@ -63,6 +73,12 @@ public class DAOHelper extends SQLiteOpenHelper {
     public static abstract class ListEntryStructure implements BaseColumns {
         public static final String TABLE_NAME = "list";
         public static final String COLUMN_NAME_TITLE = "title";
+    }
+
+    public static abstract class ItemStructure implements BaseColumns {
+        public static final String TABLE_NAME = "item";
+        public static final String COLUMN_NAME_TITLE = "title";
+        public static final String COLUMN_NAME_LASTUSED = "lastused";
     }
 
     public void createDefaultObjects(SQLiteDatabase db) {

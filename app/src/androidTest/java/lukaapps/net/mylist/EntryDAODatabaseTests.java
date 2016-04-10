@@ -110,4 +110,33 @@ public class EntryDAODatabaseTests {
 
         assertTrue(db.getEntries().size() == 0);
     }
+
+    @Test
+    public void saveEntry() throws Exception {
+        Entry entry = db.saveEntry(new Entry(0, testString, 100));
+
+        long id = entry.id;
+        Entry testEntry = db.getEntry(id);
+
+        assertEquals(testEntry.title, testString);
+        assertEquals(testEntry.id, id);
+        assertEquals(testEntry.listID, 100);
+    }
+
+    @Test
+    public void updateEntry() throws Exception {
+        Entry entry = db.saveEntry(new Entry(0, testString, 100));
+
+        long id = entry.id;
+        entry.title = "NewTitle";
+        entry.listID = 99;
+
+        db.saveEntry(entry);
+
+        Entry testEntry = db.getEntry(id);
+
+        assertEquals(testEntry.title, "NewTitle");
+        assertEquals(testEntry.id, id);
+        assertEquals(testEntry.listID, 99);
+    }
 }

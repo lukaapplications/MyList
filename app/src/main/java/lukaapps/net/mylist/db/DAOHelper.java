@@ -17,7 +17,8 @@ public class DAOHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + EntryStructure.TABLE_NAME + " (" +
                     EntryStructure._ID + " INTEGER PRIMARY KEY," +
-                    EntryStructure.COLUMN_NAME_TITLE + TEXT_TYPE +
+                    EntryStructure.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+                    EntryStructure.COLUMN_NAME_LIST + INTEGER_TYPE +
                     " )";
     private static final String SQL_CREATE_ENTRYLISTS =
             "CREATE TABLE " + ListEntryStructure.TABLE_NAME + " (" +
@@ -37,6 +38,8 @@ public class DAOHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
         db.execSQL(SQL_CREATE_ENTRYLISTS);
+
+        createDefaultObjects(db);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -54,10 +57,14 @@ public class DAOHelper extends SQLiteOpenHelper {
     public static abstract class EntryStructure implements BaseColumns {
         public static final String TABLE_NAME = "entry";
         public static final String COLUMN_NAME_TITLE = "title";
+        public static final String COLUMN_NAME_LIST = "listid";
     }
 
     public static abstract class ListEntryStructure implements BaseColumns {
         public static final String TABLE_NAME = "list";
         public static final String COLUMN_NAME_TITLE = "title";
+    }
+
+    public void createDefaultObjects(SQLiteDatabase db) {
     }
 }

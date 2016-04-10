@@ -29,6 +29,7 @@ public final class EntryDAO implements IEntryDAO {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(EntryStructure.COLUMN_NAME_TITLE, entry.title);
+        values.put(EntryStructure.COLUMN_NAME_LIST, entry.listID);
 
         try {
             // Insert the new row, returning the primary key value of the new row
@@ -53,6 +54,7 @@ public final class EntryDAO implements IEntryDAO {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(EntryStructure.COLUMN_NAME_TITLE, entry.title);
+        values.put(EntryStructure.COLUMN_NAME_LIST, entry.listID);
 
         try {
             // Which row to update, based on the ID
@@ -81,8 +83,9 @@ public final class EntryDAO implements IEntryDAO {
     private Entry mapCurrentCursorPositionToEntry(Cursor c) {
         String title = c.getString(c.getColumnIndexOrThrow(EntryStructure.COLUMN_NAME_TITLE));
         long id = c.getLong(c.getColumnIndexOrThrow(EntryStructure._ID));
+        long listID = c.getLong(c.getColumnIndexOrThrow(EntryStructure.COLUMN_NAME_LIST));
 
-        Entry entry = new Entry(id, title);
+        Entry entry = new Entry(id, title, listID);
 
         return entry;
     }
@@ -93,7 +96,8 @@ public final class EntryDAO implements IEntryDAO {
 
         String[] projection = {
                 EntryStructure._ID,
-                EntryStructure.COLUMN_NAME_TITLE
+                EntryStructure.COLUMN_NAME_TITLE,
+                EntryStructure.COLUMN_NAME_LIST
         };
 
         // How you want the results sorted in the resulting Cursor
@@ -133,7 +137,8 @@ public final class EntryDAO implements IEntryDAO {
 
         String[] projection = {
                 EntryStructure._ID,
-                EntryStructure.COLUMN_NAME_TITLE
+                EntryStructure.COLUMN_NAME_TITLE,
+                EntryStructure.COLUMN_NAME_LIST
         };
         String selection = EntryStructure._ID + " = ?";
         String[] selectionArgs = {String.valueOf(id)};

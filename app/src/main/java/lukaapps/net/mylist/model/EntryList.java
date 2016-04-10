@@ -1,21 +1,21 @@
 package lukaapps.net.mylist.model;
 
-public class Entry {
+public class EntryList {
 
     public long id;
     public String title;
 
-    public Entry(String title) {
+    public EntryList(String title) {
         this.title = title;
     }
 
-    public Entry(long id, String title) {
+    public EntryList(long id, String title) {
         this(title);
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return String.format("Entry (%1$s) [%2$s]", id, title);
+        return String.format("List (%1$s) [%2$s]", id, title);
     }
 }

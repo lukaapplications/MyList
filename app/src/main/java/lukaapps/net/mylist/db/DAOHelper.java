@@ -10,15 +10,25 @@ public class DAOHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "lukaapps.net.mylist.db";
 
     private static final String TEXT_TYPE = " TEXT";
+    private static final String INTEGER_TYPE = " INTEGER";
     private static final String COMMA_SEP = ",";
+
+
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + ListEntry.TABLE_NAME + " (" +
-                    ListEntry._ID + " INTEGER PRIMARY KEY," +
-                    ListEntry.COLUMN_NAME_TITLE + TEXT_TYPE +
+            "CREATE TABLE " + EntryStructure.TABLE_NAME + " (" +
+                    EntryStructure._ID + " INTEGER PRIMARY KEY," +
+                    EntryStructure.COLUMN_NAME_TITLE + TEXT_TYPE +
+                    " )";
+    private static final String SQL_CREATE_ENTRYLISTS =
+            "CREATE TABLE " + ListEntryStructure.TABLE_NAME + " (" +
+                    ListEntryStructure._ID + " INTEGER PRIMARY KEY," +
+                    ListEntryStructure.COLUMN_NAME_TITLE + TEXT_TYPE +
                     " )";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + ListEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + EntryStructure.TABLE_NAME;
+    private static final String SQL_DELETE_ENTRYLISTS =
+            "DROP TABLE IF EXISTS " + ListEntryStructure.TABLE_NAME;
 
     public DAOHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,12 +36,14 @@ public class DAOHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_ENTRYLISTS);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_ENTRYLISTS);
         onCreate(db);
     }
 
@@ -39,9 +51,13 @@ public class DAOHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    /* Inner class that defines the table contents */
-    public static abstract class ListEntry implements BaseColumns {
+    public static abstract class EntryStructure implements BaseColumns {
         public static final String TABLE_NAME = "entry";
+        public static final String COLUMN_NAME_TITLE = "title";
+    }
+
+    public static abstract class ListEntryStructure implements BaseColumns {
+        public static final String TABLE_NAME = "list";
         public static final String COLUMN_NAME_TITLE = "title";
     }
 }

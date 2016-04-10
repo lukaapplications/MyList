@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import lukaapps.net.mylist.R;
+import lukaapps.net.mylist.Utils.SampleDataGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        SampleDataGenerator generator = new SampleDataGenerator(this);
+        if (generator.generate()) {
+            generator.createSampleShoppingCartList();
+            generator.createSampleToDoList();
+        }
     }
 
     @Override

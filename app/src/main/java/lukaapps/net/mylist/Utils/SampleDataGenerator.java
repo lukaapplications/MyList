@@ -27,7 +27,7 @@ public class SampleDataGenerator {
     }
 
     public void createSampleShoppingCartList() {
-        EntryList list = new EntryList("My Shoppping list");
+        EntryList list = new EntryList("My Shopping list");
         listDAO.saveList(list);
 
         for (String s : shoppingList) {
@@ -44,5 +44,9 @@ public class SampleDataGenerator {
             Entry entry = new Entry(0, s, list.id);
             EntryManager.saveEntry(entry, context);
         }
+    }
+
+    public boolean generate() {
+        return listDAO.getLists().size() < 2;
     }
 }
